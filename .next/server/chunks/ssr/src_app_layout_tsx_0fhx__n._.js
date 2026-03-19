@@ -1,0 +1,3 @@
+module.exports=[27572,a=>{"use strict";var b=a.i(7997);a.s(["default",0,function({children:a}){return(0,b.jsxs)("html",{lang:"zh-CN",className:"h-full",children:[(0,b.jsxs)("head",{children:[(0,b.jsx)("link",{href:"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap",rel:"stylesheet"}),(0,b.jsx)("link",{href:"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined",rel:"stylesheet"})]}),(0,b.jsx)("body",{className:"h-full font-primary",children:a})]})},"metadata",0,{title:"FANSONE - 全球美女网黄全收集",description:"真实私密交友，寻找灵魂与身体的双重愉悦"}])},50645,a=>{a.n(a.i(27572))}];
+
+//# sourceMappingURL=src_app_layout_tsx_0fhx__n._.js.map

@@ -18,7 +18,7 @@ const CARD_H_LARGE = 220;
 const CARD_GAP = 12;
 const CARD_STEP = CARD_W + CARD_GAP;
 const AUTO_PLAY_MS = 2000;
-const TRANSITION_MS = 400;
+const TRANSITION_MS = 180;
 const SCALE_MIN = 0.9;
 const SCALE_MAX = 1.1;
 const OPACITY_MIN = 0.4;
@@ -123,7 +123,7 @@ export default function HeroSection() {
 
       const tx = getTranslateForIndex(index, container.offsetWidth);
       track.style.transition = animate
-        ? `transform ${TRANSITION_MS}ms cubic-bezier(0.25,0.1,0.25,1)`
+        ? `transform ${TRANSITION_MS}ms cubic-bezier(0.25,0.1,0.1,1)`
         : "none";
       track.style.transform = `translateX(${tx}px)`;
 

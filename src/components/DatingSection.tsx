@@ -16,7 +16,7 @@ export default function DatingSection() {
     <section
       className="flex flex-col items-center gap-8 px-8 py-[60px] w-full"
       style={{
-        background: "linear-gradient(to top, #280A1A 0%, #150A28 100%)",
+        background: "linear-gradient(to top, #150A25 0%, #1E0A22 30%, #150A28 100%)",
       }}
     >
       <RevealChild>

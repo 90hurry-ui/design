@@ -1,25 +1,30 @@
 "use client";
 
-import { Video, Lock, MessageCircle } from "lucide-react";
+import { Heart, Sparkles, Moon } from "lucide-react";
 import { RevealChild } from "./ScrollReveal";
 
 const featureCards = [
-  { icon: Video, title: "视频通话", desc: "与真实创作者面对面视频互动" },
-  { icon: Lock, title: "私密相册", desc: "专属私密内容，只为你解锁" },
-  { icon: MessageCircle, title: "即时消息", desc: "随时随地，畅聊无限" },
+  { icon: Heart, title: "情感陪伴", desc: "AI深度理解你的情绪与需求" },
+  { icon: Sparkles, title: "智能对话", desc: "自然流畅，越聊越懂你的心" },
+  { icon: Moon, title: "全天在线", desc: "24小时不间断温暖陪伴你" },
 ];
 
 export default function DatingSection() {
-  const avatars = [1, 2, 1, 2, 1];
+  const avatars = [1, 2, 3, 4, 5];
 
   return (
-    <section className="flex flex-col items-center gap-8 bg-[var(--color-bg-primary)] px-8 py-[60px] w-full">
+    <section
+      className="flex flex-col items-center gap-8 px-8 py-[60px] w-full"
+      style={{
+        background: "linear-gradient(to top, #280A1A 0%, #150A28 100%)",
+      }}
+    >
       <RevealChild>
         <h2 className="text-[32px] font-black text-[var(--color-text-primary)] leading-[1.1] text-center">
-          真实私密交友
+          AI女友24小时在线
         </h2>
         <p className="text-[16px] font-medium text-[var(--color-text-secondary)] leading-[1.4] mt-2 text-center">
-          寻找灵魂与身体的双重愉悦
+          智能陪伴，懂你所想，随时回应
         </p>
       </RevealChild>
 
@@ -54,14 +59,14 @@ export default function DatingSection() {
                 key={i}
                 className="absolute w-[60px] h-[60px] rounded-full bg-cover bg-center border-[3px] border-[var(--color-bg-primary)]"
                 style={{
-                  backgroundImage: `url('/images/photo/photo${num}.webp')`,
+                  backgroundImage: `url('/images/photo/photo${num}.jpg')`,
                   left: `${i * 54}px`,
                 }}
               />
             ))}
           </div>
           <span className="text-[14px] font-medium text-[var(--color-text-secondary)]">
-            已有 10,000+ 用户找到心仪对象
+            已有 50,000+ 用户拥有专属AI女友
           </span>
         </div>
       </RevealChild>
@@ -73,7 +78,7 @@ export default function DatingSection() {
             background: "linear-gradient(180deg, #FF2D78 0%, #E91E8C 100%)",
           }}
         >
-          开始匹配
+          立即开启
         </button>
       </RevealChild>
     </section>

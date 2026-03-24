@@ -60,17 +60,32 @@ export default function CommunitySection() {
       <RevealChild>
         <div className="flex flex-col items-center gap-3 px-8 pt-12 pb-6">
           <div className="w-10 h-1 rounded-sm bg-[var(--color-accent)]" />
-          <h2 className="text-[32px] font-bold text-[var(--color-text-primary)] text-center">
-            全新社区玩法
+          <h2 className="text-[40px] font-bold text-[var(--color-text-primary)] text-center">
+            百万UP入驻
           </h2>
-          <span
-            className="text-[32px] font-bold bg-clip-text text-transparent"
-            style={{
-              backgroundImage: "linear-gradient(180deg, #FF2D78 0%, #FF69B4 100%)",
-            }}
-          >
-            百万UP主入驻
-          </span>
+          <div className="flex flex-col items-center gap-1 w-full">
+            <span
+              className="text-[24px] font-bold bg-clip-text text-transparent text-center"
+              style={{
+                backgroundImage: "linear-gradient(180deg, #E0E0E0 0%, #FFFFFF 50%, #E0E0E0 100%)",
+              }}
+            >
+              创作收益全归你
+            </span>
+            <div className="flex items-end justify-center gap-1 w-full">
+              <span className="text-[22px] font-bold text-[var(--color-text-primary)] text-center">
+                我们只抽
+              </span>
+              <span
+                className="text-[48px] font-black leading-[0.85] bg-clip-text text-transparent text-center"
+                style={{
+                  backgroundImage: "linear-gradient(110deg, #FF2D78 0%, #FF6B35 25%, #FFD700 50%, #FF2D78 75%, #FF69B4 100%)",
+                }}
+              >
+                7%
+              </span>
+            </div>
+          </div>
           <p className="text-[15px] font-medium text-[var(--color-text-secondary)] text-center">
             与你喜欢的博主真实互动
           </p>

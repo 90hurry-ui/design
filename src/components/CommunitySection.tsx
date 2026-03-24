@@ -53,7 +53,7 @@ export default function CommunitySection() {
       className="flex flex-col w-full"
       style={{
         background:
-          "linear-gradient(to top, #1A0A1E 0%, #2A0E2E 40%, #1A0A1E 70%, #0A0A0F 100%)",
+          "linear-gradient(to top, #0F0525 0%, #200A28 34%, #0A1530 67%, #0F0525 100%)",
       }}
     >
       {/* Community Header */}

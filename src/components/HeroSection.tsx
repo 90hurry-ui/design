@@ -355,7 +355,12 @@ export default function HeroSection() {
       </div>
 
       {/* 热门网黄 Section */}
-      <div className="flex flex-col gap-4 pt-6 w-full">
+      <div
+        className="flex flex-col gap-4 pt-6 w-full"
+        style={{
+          background: "linear-gradient(to top, #150A28 0%, #0A0A0F 75%, #0A0A0F 100%)",
+        }}
+      >
         <div className="flex items-center gap-2 px-6">
           <div className="w-1 h-5 rounded-sm bg-[var(--color-accent)]" />
           <span className="text-[20px] font-bold text-[var(--color-text-primary)]">

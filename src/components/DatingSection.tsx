@@ -73,7 +73,7 @@ export default function DatingSection() {
 
       <RevealChild className="w-full">
         <button
-          className="w-full rounded-[14px] py-4 text-center text-[18px] font-bold text-white"
+          className="w-full rounded-[14px] py-4 text-center text-[18px] font-bold text-white animate-cta-pulse"
           style={{
             background: "linear-gradient(180deg, #FF2D78 0%, #E91E8C 100%)",
           }}

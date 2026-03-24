@@ -33,6 +33,15 @@
   animation: gradient-flow 3s ease infinite;
 }
 
+@keyframes cta-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.animate-cta-pulse {
+  animation: cta-pulse 2s ease-in-out infinite;
+}
+
 @keyframes dark-rainbow {
   0% { background-position: 0% 50%; }
   25% { background-position: 50% 100%; }

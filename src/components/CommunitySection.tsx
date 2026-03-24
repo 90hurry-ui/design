@@ -227,7 +227,7 @@ export default function CommunitySection() {
             与你喜爱的UP主零距离互动
           </p>
           <button
-            className="flex items-center justify-center gap-2 w-[280px] rounded-full py-4 px-10 text-[16px] font-bold text-white shadow-[0_4px_24px_2px_#FF2D7840]"
+            className="flex items-center justify-center gap-2 w-[280px] rounded-full py-4 px-10 text-[16px] font-bold text-white shadow-[0_4px_24px_2px_#FF2D7840] animate-cta-pulse"
             style={{
               background: "linear-gradient(180deg, #FF2D78 0%, #E91E8C 100%)",
             }}

@@ -274,17 +274,6 @@ export default function HeroSection() {
     resumeAutoPlay();
   }, [goTo, resumeAutoPlay, total, getTranslateForIndex]);
 
-  // --- Touch events ---
-  const onTouchStart = useCallback(
-    (e: React.TouchEvent) => startDrag(e.touches[0].clientX),
-    [startDrag]
-  );
-  const onTouchMove = useCallback(
-    (e: React.TouchEvent) => moveDrag(e.touches[0].clientX),
-    [moveDrag]
-  );
-  const onTouchEnd = useCallback(() => endDrag(), [endDrag]);
-
   // --- Mouse events ---
   const onMouseDown = useCallback(
     (e: React.MouseEvent) => {
@@ -305,6 +294,32 @@ export default function HeroSection() {
       document.removeEventListener("mouseup", handleMouseUp);
     };
   }, [moveDrag, endDrag]);
+
+  // --- Touch events (non-passive to override iOS inertia scrolling) ---
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      startDrag(e.touches[0].clientX);
+    };
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isDragging.current) {
+        e.preventDefault(); // block iOS native momentum
+      }
+      moveDrag(e.touches[0].clientX);
+    };
+    const handleTouchEnd = () => endDrag();
+
+    el.addEventListener("touchstart", handleTouchStart, { passive: true });
+    el.addEventListener("touchmove", handleTouchMove, { passive: false });
+    el.addEventListener("touchend", handleTouchEnd, { passive: true });
+    return () => {
+      el.removeEventListener("touchstart", handleTouchStart);
+      el.removeEventListener("touchmove", handleTouchMove);
+      el.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [startDrag, moveDrag, endDrag]);
 
   return (
     <section
@@ -372,9 +387,7 @@ export default function HeroSection() {
         <div
           ref={containerRef}
           className="relative w-full h-[300px] overflow-x-clip overflow-y-visible pt-[40px] select-none cursor-grab active:cursor-grabbing"
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
+          style={{ touchAction: "pan-y" }}
           onMouseDown={onMouseDown}
         >
           <div

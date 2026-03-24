@@ -18,7 +18,7 @@ const CARD_H_LARGE = 220;
 const CARD_GAP = 12;
 const CARD_STEP = CARD_W + CARD_GAP;
 const AUTO_PLAY_MS = 2000;
-const TRANSITION_MS = 180;
+const TRANSITION_MS = 400;
 const SCALE_MIN = 0.9;
 const SCALE_MAX = 1.1;
 const OPACITY_MIN = 0.4;
@@ -123,7 +123,7 @@ export default function HeroSection() {
 
       const tx = getTranslateForIndex(index, container.offsetWidth);
       track.style.transition = animate
-        ? `transform ${TRANSITION_MS}ms cubic-bezier(0.25,0.1,0.1,1)`
+        ? `transform ${TRANSITION_MS}ms cubic-bezier(0.25,0.1,0.25,1)`
         : "none";
       track.style.transform = `translateX(${tx}px)`;
 
@@ -274,6 +274,17 @@ export default function HeroSection() {
     resumeAutoPlay();
   }, [goTo, resumeAutoPlay, total, getTranslateForIndex]);
 
+  // --- Touch events ---
+  const onTouchStart = useCallback(
+    (e: React.TouchEvent) => startDrag(e.touches[0].clientX),
+    [startDrag]
+  );
+  const onTouchMove = useCallback(
+    (e: React.TouchEvent) => moveDrag(e.touches[0].clientX),
+    [moveDrag]
+  );
+  const onTouchEnd = useCallback(() => endDrag(), [endDrag]);
+
   // --- Mouse events ---
   const onMouseDown = useCallback(
     (e: React.MouseEvent) => {
@@ -294,32 +305,6 @@ export default function HeroSection() {
       document.removeEventListener("mouseup", handleMouseUp);
     };
   }, [moveDrag, endDrag]);
-
-  // --- Touch events (non-passive to override iOS inertia scrolling) ---
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const handleTouchStart = (e: TouchEvent) => {
-      startDrag(e.touches[0].clientX);
-    };
-    const handleTouchMove = (e: TouchEvent) => {
-      if (isDragging.current) {
-        e.preventDefault(); // block iOS native momentum
-      }
-      moveDrag(e.touches[0].clientX);
-    };
-    const handleTouchEnd = () => endDrag();
-
-    el.addEventListener("touchstart", handleTouchStart, { passive: true });
-    el.addEventListener("touchmove", handleTouchMove, { passive: false });
-    el.addEventListener("touchend", handleTouchEnd, { passive: true });
-    return () => {
-      el.removeEventListener("touchstart", handleTouchStart);
-      el.removeEventListener("touchmove", handleTouchMove);
-      el.removeEventListener("touchend", handleTouchEnd);
-    };
-  }, [startDrag, moveDrag, endDrag]);
 
   return (
     <section
@@ -387,7 +372,9 @@ export default function HeroSection() {
         <div
           ref={containerRef}
           className="relative w-full h-[300px] overflow-x-clip overflow-y-visible pt-[40px] select-none cursor-grab active:cursor-grabbing"
-          style={{ touchAction: "pan-y" }}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
           onMouseDown={onMouseDown}
         >
           <div

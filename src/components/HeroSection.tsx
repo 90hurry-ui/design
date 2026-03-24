@@ -7,8 +7,8 @@ const hotCards = [
   { name: "饼干姐姐", img: "/images/01/Snipaste_2026-01-13_20-44-06.png" },
   { name: "狐不妖", img: "/images/01/Snipaste_2026-01-13_21-15-21.png" },
   { name: "苏小涵", img: "/images/01/Snipaste_2026-01-13_21-15-47.png" },
-  { name: "Nana", img: "/images/01/Snipaste_2026-01-13_22-06-18.png" },
-  { name: "瑶瑶摇摇摇w", img: "/images/01/Snipaste_2026-01-13_22-12-21.png" },
+  { name: "小蜜桃", img: "/images/01/Snipaste_2026-01-13_22-06-18.png" },
+  { name: "瑶瑶", img: "/images/01/Snipaste_2026-01-13_22-12-21.png" },
   { name: "芋圆圆", img: "/images/01/Telegram Web (33).jpg" },
   { name: "水蜜桃", img: "/images/01/Telegram Web (45).jpg" },
 ];
@@ -307,12 +307,28 @@ export default function HeroSection() {
   }, [moveDrag, endDrag]);
 
   return (
-    <section className="flex flex-col w-full bg-[var(--color-bg-primary)]">
+    <section
+      className="flex flex-col w-full"
+      style={{
+        background: "linear-gradient(to top, #0A1E1E 0%, #0A1428 50%, #0D0620 100%)",
+      }}
+    >
       {/* Hero Image Area */}
-      <div className="relative w-full h-[560px] overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/hero-bg.jpg')" }}
+      <div className="relative w-full h-[460px] overflow-hidden">
+        <video
+          className="absolute inset-0 w-full h-[360px] object-cover"
+          src="/images/move/top_move2.mov"
+          poster="/images/move/fengmian2.jpg"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+        <img
+          src="/images/move/fengmian2.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-[360px] object-cover"
+          style={{ zIndex: -1 }}
         />
         <div className="absolute top-0 left-0 w-full h-[56px] flex items-center px-6 bg-[#0A0A0F80] z-10">
           <span className="text-[22px] font-bold text-[var(--color-text-primary)] tracking-[2px]">
@@ -320,10 +336,10 @@ export default function HeroSection() {
           </span>
         </div>
         <div
-          className="absolute inset-0 flex flex-col justify-end gap-[6px] px-6 pb-10"
+          className="absolute inset-0 flex flex-col justify-end gap-2 px-6 pb-8"
           style={{
             background:
-              "linear-gradient(to top, #0A0A0F 0%, #0A0A0FDD 30%, #0A0A0F00 65%, #0A0A0F00 100%)",
+              "linear-gradient(to top, #0A0A0F 0%, #0A0A0F 20%, #0A0A0FEE 28%, #0A0A0FCC 40%, #0A0A0F99 55%, #0A0A0F40 70%, #0A0A0F00 85%, #0A0A0F00 100%)",
           }}
         >
           <h1 className="text-[32px] font-black text-[var(--color-text-primary)]">

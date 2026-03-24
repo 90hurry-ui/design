@@ -5,55 +5,46 @@ import { Heart, MessageCircle, Camera, Video, ArrowRight } from "lucide-react";
 import { RevealChild } from "./ScrollReveal";
 
 const stats = [
-  { base: 1000000, suffix: "+", label: "UP主入驻", color: "text-[var(--color-accent)]" },
-  { base: 50000, suffix: "+", label: "原创内容", color: "text-[var(--color-text-primary)]" },
+  { base: 1378233, label: "UP主入驻", color: "text-[var(--color-accent)]" },
+  { base: 98325, label: "原创内容", color: "text-[var(--color-text-primary)]" },
   { fixed: "24/7", label: "实时更新", color: "text-[var(--color-text-primary)]" },
 ];
 
-function AnimatedCounter({ base, suffix = "", fixed }: { base?: number; suffix?: string; fixed?: string }) {
+function AnimatedCounter({ base, fixed }: { base?: number; fixed?: string }) {
   const [value, setValue] = useState(base ?? 0);
+  const [bounce, setBounce] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
-  const started = useRef(false);
 
+  // Random micro-increments with bounce
   useEffect(() => {
     if (fixed || !base) return;
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          // Count up from 0
-          const duration = 2000;
-          const startTime = performance.now();
-          const tick = (now: number) => {
-            const progress = Math.min((now - startTime) / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            setValue(Math.floor(eased * base));
-            if (progress < 1) requestAnimationFrame(tick);
-          };
-          requestAnimationFrame(tick);
-        }
-      },
-      { threshold: 0.5 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [base, fixed]);
-
-  // After count-up, start random micro-increments
-  useEffect(() => {
-    if (fixed || !base) return;
-    const interval = setInterval(() => {
-      setValue((v) => v + Math.floor(Math.random() * 3) + 1);
-    }, 3000 + Math.random() * 2000);
-    return () => clearInterval(interval);
+    const run = () => {
+      const delay = 3000 + Math.random() * 4000;
+      return setTimeout(() => {
+        setValue((v) => v + Math.floor(Math.random() * 3) + 1);
+        setBounce(true);
+        setTimeout(() => setBounce(false), 300);
+        timerRef.current = run();
+      }, delay);
+    };
+    const timerRef = { current: run() };
+    return () => clearTimeout(timerRef.current);
   }, [base, fixed]);
 
   if (fixed) return <>{fixed}</>;
 
-  return <span ref={ref}>{value.toLocaleString()}{suffix}</span>;
+  return (
+    <span
+      ref={ref}
+      style={{
+        display: "inline-block",
+        transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)",
+        transform: bounce ? "scale(1.2)" : "scale(1)",
+      }}
+    >
+      {value.toLocaleString()}
+    </span>
+  );
 }
 
 const creatorsRow1 = [
@@ -154,7 +145,7 @@ export default function CommunitySection() {
             <div key={i} className="flex items-center gap-6">
               <div className="flex flex-col items-center gap-[2px]">
                 <span className={`text-[22px] font-black ${stat.color}`}>
-                  <AnimatedCounter base={stat.base} suffix={stat.suffix} fixed={stat.fixed} />
+                  <AnimatedCounter base={stat.base} fixed={stat.fixed} />
                 </span>
                 <span className="text-[11px] font-medium text-[var(--color-text-muted)]">
                   {stat.label}

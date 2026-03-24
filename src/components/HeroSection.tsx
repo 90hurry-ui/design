@@ -3,14 +3,15 @@
 import { useEffect, useRef, useCallback, useMemo } from "react";
 
 const hotCards = [
-  { name: "玩偶姐姐", img: "/images/01/Snipaste_2026-01-13_20-35-33.png" },
-  { name: "饼干姐姐", img: "/images/01/Snipaste_2026-01-13_20-44-06.png" },
-  { name: "狐不妖", img: "/images/01/Snipaste_2026-01-13_21-15-21.png" },
-  { name: "苏小涵", img: "/images/01/Snipaste_2026-01-13_21-15-47.png" },
-  { name: "小蜜桃", img: "/images/01/Snipaste_2026-01-13_22-06-18.png" },
-  { name: "瑶瑶", img: "/images/01/Snipaste_2026-01-13_22-12-21.png" },
-  { name: "芋圆圆", img: "/images/01/Telegram Web (33).jpg" },
-  { name: "水蜜桃", img: "/images/01/Telegram Web (45).jpg" },
+  { name: "玩偶姐姐", img: "/images/01/玩偶姐姐.png" },
+  { name: "饼干姐姐", img: "/images/01/饼干姐姐.png" },
+  { name: "狐不妖", img: "/images/01/狐不妖.png" },
+  { name: "柚子猫", img: "/images/01/柚子猫.png" },
+  { name: "苏小涵", img: "/images/01/苏小涵.png" },
+  { name: "小蜜桃", img: "/images/01/柚子猫.png" },
+  { name: "瑶瑶", img: "/images/01/瑶瑶.png" },
+  { name: "芋圆圆", img: "/images/01/芋圆圆.jpg" },
+  { name: "水蜜桃", img: "/images/01/水蜜桃.jpg" },
 ];
 
 const CARD_W = 140;
@@ -403,9 +404,11 @@ export default function HeroSection() {
                     background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%)",
                   }}
                 />
-                <span className="absolute bottom-2 left-0 w-full text-center text-[13px] font-bold text-white z-10">
-                  {card.name}
-                </span>
+                <div className="absolute bottom-3 left-0 w-full flex flex-col items-center gap-[5px] z-10">
+                  <span className="text-[26px] font-semibold text-white text-center">
+                    {card.name}
+                  </span>
+                </div>
               </div>
             ))}
           </div>

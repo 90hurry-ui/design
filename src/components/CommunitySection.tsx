@@ -1,13 +1,60 @@
 "use client";
 
+import { useEffect, useRef, useState, useCallback } from "react";
 import { Heart, MessageCircle, Camera, Video, ArrowRight } from "lucide-react";
 import { RevealChild } from "./ScrollReveal";
 
 const stats = [
-  { value: "1,000,000+", label: "UP主入驻", color: "text-[var(--color-accent)]" },
-  { value: "50,000+", label: "原创内容", color: "text-[var(--color-text-primary)]" },
-  { value: "24/7", label: "实时更新", color: "text-[var(--color-text-primary)]" },
+  { base: 1000000, suffix: "+", label: "UP主入驻", color: "text-[var(--color-accent)]" },
+  { base: 50000, suffix: "+", label: "原创内容", color: "text-[var(--color-text-primary)]" },
+  { fixed: "24/7", label: "实时更新", color: "text-[var(--color-text-primary)]" },
 ];
+
+function AnimatedCounter({ base, suffix = "", fixed }: { base?: number; suffix?: string; fixed?: string }) {
+  const [value, setValue] = useState(base ?? 0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    if (fixed || !base) return;
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true;
+          // Count up from 0
+          const duration = 2000;
+          const startTime = performance.now();
+          const tick = (now: number) => {
+            const progress = Math.min((now - startTime) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setValue(Math.floor(eased * base));
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [base, fixed]);
+
+  // After count-up, start random micro-increments
+  useEffect(() => {
+    if (fixed || !base) return;
+    const interval = setInterval(() => {
+      setValue((v) => v + Math.floor(Math.random() * 3) + 1);
+    }, 3000 + Math.random() * 2000);
+    return () => clearInterval(interval);
+  }, [base, fixed]);
+
+  if (fixed) return <>{fixed}</>;
+
+  return <span ref={ref}>{value.toLocaleString()}{suffix}</span>;
+}
 
 const creatorsRow1 = [
   { name: "三上悠亚", fans: "52.3万 粉丝", img: "/images/02/02img1.jpg" },
@@ -65,21 +112,29 @@ export default function CommunitySection() {
           </h2>
           <div className="flex flex-col items-center gap-1 w-full">
             <span
-              className="text-[24px] font-bold bg-clip-text text-transparent text-center"
+              className="text-[24px] font-bold bg-clip-text text-transparent text-center animate-gradient-flow"
               style={{
-                backgroundImage: "linear-gradient(180deg, #E0E0E0 0%, #FFFFFF 50%, #E0E0E0 100%)",
+                backgroundImage: "linear-gradient(90deg, #E0E0E0 0%, #ff2d78 50%, #E0E0E0 100%)",
+                backgroundSize: "200% 100%",
               }}
             >
               创作收益全归你
             </span>
             <div className="flex items-end justify-center gap-1 w-full">
-              <span className="text-[22px] font-bold text-[var(--color-text-primary)] text-center">
+              <span
+                className="text-[22px] font-bold bg-clip-text text-transparent text-center animate-gradient-flow"
+                style={{
+                  backgroundImage: "linear-gradient(-90deg, #ffffff 0%, #ff2d78 50%, #ffffff 100%)",
+                  backgroundSize: "200% 100%",
+                }}
+              >
                 我们只抽
               </span>
               <span
-                className="text-[48px] font-black leading-[0.85] bg-clip-text text-transparent text-center"
+                className="text-[48px] font-black leading-[0.85] bg-clip-text text-transparent text-center animate-gradient-flow"
                 style={{
-                  backgroundImage: "linear-gradient(110deg, #FF2D78 0%, #FF6B35 25%, #FFD700 50%, #FF2D78 75%, #FF69B4 100%)",
+                  backgroundImage: "linear-gradient(110deg, #FF2D78 0%, #FF6B35 12.5%, #FFD700 25%, #FF2D78 37.5%, #FF69B4 50%, #FF2D78 62.5%, #FFD700 75%, #FF6B35 87.5%, #FF2D78 100%)",
+                  backgroundSize: "200% 100%",
                 }}
               >
                 7%
@@ -98,7 +153,9 @@ export default function CommunitySection() {
           {stats.map((stat, i) => (
             <div key={i} className="flex items-center gap-6">
               <div className="flex flex-col items-center gap-[2px]">
-                <span className={`text-[22px] font-black ${stat.color}`}>{stat.value}</span>
+                <span className={`text-[22px] font-black ${stat.color}`}>
+                  <AnimatedCounter base={stat.base} suffix={stat.suffix} fixed={stat.fixed} />
+                </span>
                 <span className="text-[11px] font-medium text-[var(--color-text-muted)]">
                   {stat.label}
                 </span>

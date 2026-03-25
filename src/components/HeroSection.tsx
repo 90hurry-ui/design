@@ -87,6 +87,14 @@ export default function HeroSection() {
       card.style.opacity = `${opacity}`;
       card.style.boxShadow =
         glowAlpha > 5 ? `0 0 24px 2px #FF2D78${glowHex}` : "none";
+
+      // Show underline only on the active (center) card
+      const underline = card.querySelector<HTMLElement>("[data-underline]");
+      if (underline) {
+        const show = t < 0.3;
+        underline.style.opacity = show ? "1" : "0";
+        underline.style.transform = show ? "scaleX(1)" : "scaleX(0)";
+      }
     }
   }, []);
 
@@ -408,6 +416,15 @@ export default function HeroSection() {
                   <span className="text-[26px] font-semibold text-white text-center">
                     {card.name}
                   </span>
+                  <div
+                    data-underline
+                    className="h-[3px] w-[52px] rounded-sm bg-[#FF2D78]"
+                    style={{
+                      opacity: 0,
+                      transform: "scaleX(0)",
+                      transition: "opacity 0.3s, transform 0.3s",
+                    }}
+                  />
                 </div>
               </div>
             ))}

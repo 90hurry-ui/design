@@ -430,9 +430,6 @@ export default function HeroSection() {
             ))}
           </div>
 
-          {/* Fade edges */}
-          <div className="absolute left-0 top-0 w-[60px] h-full bg-gradient-to-r from-[#0A0A0F] to-transparent pointer-events-none z-10" />
-          <div className="absolute right-0 top-0 w-[40px] h-full bg-gradient-to-l from-[#0A0A0F] to-transparent pointer-events-none z-10" />
         </div>
       </div>
     </section>
